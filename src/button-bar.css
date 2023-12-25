@@ -1,0 +1,16 @@
+.ButtonBar {
+    place-content: center;
+}
+
+.ButtonBar__Button {
+    background-color: transparent;
+    border: 0;
+    outline: transparent;
+    font-size: 1.5em;
+    color: lightgray;
+    cursor: pointer;
+}
+
+.ButtonBar__Button_disabled {
+    color: darkgray;
+}

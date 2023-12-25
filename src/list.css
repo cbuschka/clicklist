@@ -1,0 +1,24 @@
+.List {
+    list-style: none inside;
+    border: 0;
+    margin: 0;
+    width: 100%;
+    min-width: 100%;
+    padding: 0;
+}
+
+.List__Contents {
+    width: 100%;
+}
+
+.List__Item {
+    padding: 1em;
+    margin: 0;
+    border: 0;
+    width: 100%;
+    cursor: pointer;
+}
+
+.List__Item.List__Item_selected {
+    background-color: darkgray;
+}

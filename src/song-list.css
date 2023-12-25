@@ -1,0 +1,7 @@
+.SongList {
+    height: 100%;
+}
+
+.SongList__Item_bpm {
+    color: lightgreen;
+}

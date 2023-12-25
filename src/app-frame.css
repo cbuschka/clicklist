@@ -1,0 +1,31 @@
+.AppFrame {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    border: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.AppName__Top, .AppName__Bottom {
+    padding: 0.8em;
+}
+
+.AppName__Top {
+    flex-grow: 0;
+    border-bottom: 1px solid darkgray;
+    box-shadow: lightgray;
+}
+
+.AppName__Bottom {
+    flex-grow: 0;
+    border-top: 1px solid darkgray;
+}
+
+
+.AppName__Body {
+    flex-grow: 1;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}

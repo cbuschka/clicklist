@@ -8,7 +8,6 @@
 }
 
 .AppName__Top, .AppName__Bottom {
-    padding: 0.8em;
 }
 
 .AppName__Top {
@@ -21,7 +20,6 @@
     flex-grow: 0;
     border-top: 1px solid darkgray;
 }
-
 
 .AppName__Body {
     flex-grow: 1;

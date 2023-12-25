@@ -1,8 +1,10 @@
 .ButtonBar {
     place-content: center;
+    border-bottom: 1px solid darkgrey;
 }
 
 .ButtonBar__Button {
+    padding: 1em;
     background-color: transparent;
     border: 0;
     outline: transparent;
@@ -11,6 +13,34 @@
     cursor: pointer;
 }
 
+:not(.ButtonBar__Button_disabled).ButtonBar__Button:hover {
+    color: lightgreen;
+}
+
 .ButtonBar__Button_disabled {
     color: darkgray;
+}
+
+/* one item */
+.ButtonBar__Button:first-child:nth-last-child(1) {
+    /* -or- li:only-child { */
+    width: 100%;
+}
+
+/* two items */
+.ButtonBar__Button:first-child:nth-last-child(2),
+.ButtonBar__Button:first-child:nth-last-child(2) ~ .ButtonBar__Button {
+    width: 50%;
+}
+
+/* three items */
+.ButtonBar__Button:first-child:nth-last-child(3),
+.ButtonBar__Button:first-child:nth-last-child(3) ~ .ButtonBar__Button {
+    width: 33.3333%;
+}
+
+/* four items */
+.ButtonBar__Button:first-child:nth-last-child(4),
+.ButtonBar__Button:first-child:nth-last-child(4) ~ .ButtonBar__Button {
+    width: 25%;
 }

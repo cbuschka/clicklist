@@ -1,7 +1,33 @@
 .SongList {
     height: 100%;
+    flex-grow: 1;
+}
+
+.SongList__ScrollPane {
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.SongList__Item {
+    display: block;
+    width: 100%;
+}
+
+.SongList__Item_title {
+    font-weight: bold;
+    vertical-align: middle;
+    display: inline-block;
+    width: calc(100% - 5em);
+    overflow: clip;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .SongList__Item_bpm {
+    font-weight: bold;
+    vertical-align: middle;
+    display: inline-block;
+    width: 5em;
     color: lightgreen;
 }

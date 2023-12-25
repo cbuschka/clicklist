@@ -60,7 +60,7 @@ class AppModel {
     appendDataTo(target) {
         target["songList"] = {songs: this.songs, selectedSong: this.selectedSong};
         target["app"] = {
-            metronome: this.metrome,
+            metronome: this.metronome,
             playing: (this.metronome.getStatus() === "playing"),
             canStartPlaying: (this.metronome.getStatus() !== "playing" && !!this.selectedSong),
             canStopPlaying: (this.metronome.getStatus() === "playing")

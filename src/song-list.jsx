@@ -8,8 +8,8 @@ const Item = ({song, onSongSelect, selected}) => {
     };
     return <ListItem className="SongList__Item" selected={selected === true}
                      onClick={selectSong}>
-        <div>{song.title || "???"} | <span
-            className="SongList__Item_bpm">{song.bpm || ""}</span></div>
+        <span className="SongList__Item_title">{song.title || "???"}</span>
+        <span className="SongList__Item_bpm">{song.bpm || ""}</span>
     </ListItem>
 }
 

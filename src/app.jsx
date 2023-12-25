@@ -3,12 +3,13 @@ import {dispatcher} from "@cbuschka/flux";
 import './app-model.js';
 import {SongList} from "./song-list";
 import {useEffect, useState} from "react";
-import {Pulse} from "./pulse";
 import {startPlaying} from "./start-playing-action.js";
 import {stopPlaying} from "./stop-playing-action.js";
 import {AppFrame} from "./app-frame";
 import {ButtonBar} from "./button-bar";
 import {FaCirclePlay, FaCircleStop} from "react-icons/fa6";
+import {PulseBar} from "./pulse-bar";
+import {Title} from "./title";
 
 export function App() {
     const [appState, setAppState] = useState({metronome: null, canStartPlaying: false, canStopPlaying: false})
@@ -17,7 +18,6 @@ export function App() {
     useEffect(() => {
         const listener = (ev) => {
             const {data: {songList: {songs, selectedSong}, app: appState}} = ev;
-            console.log("select=%o", selectedSong)
             setSongs(songs);
             setSelectedSong(selectedSong);
             setAppState(appState);
@@ -33,10 +33,11 @@ export function App() {
 
     return <div className="App">
         <AppFrame>
-            <AppFrame.Top>ClickList</AppFrame.Top>
+            <AppFrame.Top>
+                <Title text="ClickList"/>
+            </AppFrame.Top>
             <AppFrame.Body>
                 <SongList songs={songs} selectedSong={selectedSong}/>
-                <Pulse metronome={metronome}/>
             </AppFrame.Body>
             <AppFrame.Bottom>
                 <ButtonBar>
@@ -45,7 +46,7 @@ export function App() {
                     <ButtonBar.Button disabled={canStopPlaying !== true}
                                       onClick={stopPlaying}><FaCircleStop/></ButtonBar.Button>
                 </ButtonBar>
-
+                <PulseBar metronome={metronome}/>
             </AppFrame.Bottom>
         </AppFrame>
     </div>;

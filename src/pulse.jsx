@@ -5,6 +5,7 @@ import classNames from "classnames";
 export const Pulse = ({metronome}) => {
     const blobRef = useRef();
     const [animating, setAnimating] = useState(false);
+
     useEffect(() => {
         if (!metronome) {
             return () => {
@@ -25,5 +26,7 @@ export const Pulse = ({metronome}) => {
             setAnimating(false);
         }, false);
     }
-    return <div ref={blobRef} className={classNames("pulse", "yellow", animating ? "animating" : "")}></div>
+    return <div className="Pulse">
+        <div ref={blobRef} className={classNames("Pulse__bubble", "yellow", animating ? "animating" : "")}></div>
+    </div>;
 }

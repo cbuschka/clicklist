@@ -1,0 +1,30 @@
+.PulseBar {
+    display: block;
+    width: 100%;
+    padding: 1em;
+    border-bottom: 1px solid darkgrey;
+}
+
+/* one item */
+.Pulse:first-child:nth-last-child(1) {
+    /* -or- li:only-child { */
+    width: 100%;
+}
+
+/* two items */
+.Pulse:first-child:nth-last-child(2),
+.Pulse:first-child:nth-last-child(2) ~ .Pulse {
+    width: 50%;
+}
+
+/* three items */
+.Pulse:first-child:nth-last-child(3),
+.Pulse:first-child:nth-last-child(3) ~ .Pulse {
+    width: 33.3333%;
+}
+
+/* four items */
+.Pulse:first-child:nth-last-child(4),
+.Pulse:first-child:nth-last-child(4) ~ .Pulse {
+    width: 25%;
+}

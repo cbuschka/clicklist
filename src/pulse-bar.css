@@ -28,3 +28,15 @@
 .Pulse:first-child:nth-last-child(4) ~ .Pulse {
     width: 25%;
 }
+
+/* five items */
+.Pulse:first-child:nth-last-child(5),
+.Pulse:first-child:nth-last-child(5) ~ .Pulse {
+    width: 20%;
+}
+
+/* six items */
+.Pulse:first-child:nth-last-child(6),
+.Pulse:first-child:nth-last-child(6) ~ .Pulse {
+    width: 16.6666%;
+}

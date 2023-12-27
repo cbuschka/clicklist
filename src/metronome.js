@@ -23,15 +23,15 @@ export class Metronome {
 // with next interval (in case the timer is late)
         this.nextNoteTime = 0.0;     // when the next note is due.
         this.noteLength = 0.05;      // length of "beep" (in seconds)
-        // this.notesInQueue = [];      // the notes that have been put into the web audio,
-        // and may or may not have played yet. {note, time}
-        this.timerWorker = new Worker("./worker.js");
+        this.timerWorker = new Worker(
+            new URL('./worker', import.meta.url), {}
+        );
 
         this.timerWorker.onmessage = (e) => {
             if (e.data === "workerTick") {
                 this.scheduler();
             } else {
-                console.log("message: " + e.data);
+                console.log("Ignored message: %o", e.data);
             }
         };
 
@@ -80,13 +80,10 @@ export class Metronome {
         this.nextNoteTime = this.audioContext.currentTime;
         this.timerWorker.postMessage("start");
 
-        this.listeners.forEach(l => l({type: "start"}));
+        this.fireEvent({type: "start"});
     }
 
     scheduleNote = (beatNumber, time) => {
-        // push the note on the queue, even if we're not playing.
-        // this.notesInQueue.push({note: beatNumber, time: time});
-        // console.log("tick %o", {note: beatNumber, time: time});
 
         // create oscillator & gainNode & connect them to the context destination
         var osc = this.audioContext.createOscillator();
@@ -121,7 +118,7 @@ export class Metronome {
 
         osc.start(time);
         osc.stop(time + this.noteLength);
-        this.listeners.forEach(l => l({type: "tick", data: {beatNumber, time}}));
+        this.fireEvent({type: "tick", data: {beatNumber, time}});
     }
 
     scheduler = () => {
@@ -143,5 +140,9 @@ export class Metronome {
 
     setTempo(newTempoBPM) {
         this.tempo = Math.max(Math.min(newTempoBPM, MAX_TEMPO), MIN_TEMPO);
+    }
+
+    fireEvent = (ev) => {
+        this.listeners.forEach(l => l(ev));
     }
 }

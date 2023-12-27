@@ -9,6 +9,10 @@ const sendTick = () => {
 self.onmessage = function (e) {
     if (e.data === "start") {
         console.log("[worker] starting");
+        if (timerId) {
+            console.log("[worker] cleaning up timer before start");
+            clearInterval(timerId);
+        }
         timerId = setInterval(() => {
             sendTick();
         }, interval);

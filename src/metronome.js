@@ -135,7 +135,7 @@ export class Metronome {
 
         this.timerWorker.postMessage("stop");
         this.status = "stopped";
-        this.listeners.forEach(l => l({type: "stop"}));
+        this.fireEvent({type: "stop"});
     }
 
     setTempo(newTempoBPM) {
@@ -144,5 +144,9 @@ export class Metronome {
 
     fireEvent = (ev) => {
         this.listeners.forEach(l => l(ev));
+    }
+
+    destroy() {
+        this.timerWorker.terminate();
     }
 }

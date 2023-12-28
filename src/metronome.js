@@ -11,16 +11,14 @@ export class Metronome {
         this.currentTwelveletNote;
         this.tempo = 120.0; // rename to tempoBPM
         this.meter = 4;
-        this.masterVolume = 0.25;
+        this.masterVolume = 1;
         this.accentVolume = 1;
-        this.quarterVolume = 0.75;
+        this.quarterVolume = 0.9;
         this.eighthVolume = 0;
         this.sixteenthVolume = 0;
         this.tripletVolume = 0;
         this.lookahead = 25.0; // rename to scheduleDelayInMillis
-        this.scheduleAheadTime = 0.1;   // How far ahead to schedule audio (sec)
-// This is calculated from lookahead, and overlaps
-// with next interval (in case the timer is late)
+        this.scheduleAheadTime = 0.1;   // how far ahead to schedule audio (sec), calculated from lookahead, and overlaps
         this.nextNoteTime = 0.0;     // when the next note is due.
         this.noteLength = 0.05;      // length of "beep" (in seconds)
         this.timerWorker = new Worker(
@@ -53,9 +51,8 @@ export class Metronome {
 
     nextTwelvelet = () => {
         const secondsPerBeat = 60.0 / this.tempo;
-        this.nextNoteTime += 0.08333 * secondsPerBeat;    // Add beat length to last beat time
-        this.currentTwelveletNote++;    // Advance the beat number, wrap to zero
-
+        this.nextNoteTime += 0.08333 * secondsPerBeat;
+        this.currentTwelveletNote++;
         if (this.currentTwelveletNote === this.maxBeats()) {
             this.currentTwelveletNote = 0;
         }

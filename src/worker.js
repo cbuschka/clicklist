@@ -2,15 +2,13 @@ let timerId = null;
 let interval = 100;
 
 const sendTick = () => {
-    // console.log("[worker] workerTick");
     postMessage("workerTick");
 }
 
 self.onmessage = function (e) {
     if (e.data === "start") {
-        console.log("[worker] starting");
+        console.log("[Worker] Starting...");
         if (timerId) {
-            console.log("[worker] cleaning up timer before start");
             clearInterval(timerId);
         }
         timerId = setInterval(() => {
@@ -18,9 +16,8 @@ self.onmessage = function (e) {
         }, interval);
         console.log("[Worker] started (interval=%o)", interval);
     } else if (e.data.interval) {
-        console.log("[worker] setting interval");
         interval = e.data.interval;
-        console.log("[worker] interval=" + interval);
+        console.log("[Worker] Changed interval=" + interval);
         if (timerId) {
             clearInterval(timerId);
             timerId = setInterval(function () {
@@ -28,10 +25,10 @@ self.onmessage = function (e) {
             }, interval);
         }
     } else if (e.data === "stop") {
-        console.log("[Worker] stopping");
+        console.log("[Worker] Stopping");
         clearInterval(timerId);
         timerId = null;
-        console.log("[Worker] stopped");
+        console.log("[Worker] Stopped");
     }
 };
 

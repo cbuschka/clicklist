@@ -21,7 +21,6 @@ export const ReloadPrompt = () => {
         onRegisteredSW: (swUrl, r) => {
             console.log('SW at %s registered.', swUrl);
             r && setInterval(() => {
-                console.log('%s: Checking for SW update, current version: %s', new Date().toISOString(), BUILD_COMMITISH);
                 r.update()
             }, RECHECK_INTERVAL_MS);
         },

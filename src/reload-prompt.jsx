@@ -7,11 +7,11 @@ import classNames from "classnames";
 import {Anchor} from "./anchor.jsx";
 
 const RECHECK_INTERVAL_MS = 20_000;
+const BUILD_TIMESTAMP = '__BUILD_TIMESTAMP__';
 
-console.log("PWA info: %o", pwaInfo)
+console.log("PWA info: %o, current version: %s", pwaInfo, BUILD_TIMESTAMP)
 
 export const ReloadPrompt = () => {
-    const buildDate = '__BUILD_TIMESTAMP__';
 
     const {
         offlineReady: [offlineReady, setOfflineReady],
@@ -21,7 +21,7 @@ export const ReloadPrompt = () => {
         onRegisteredSW: (swUrl, r) => {
             console.log('SW at %s registered.', swUrl);
             r && setInterval(() => {
-                console.log('Checking for SW update at %o, current is %s.', new Date(), buildDate)
+                console.log('Checking for SW update at %o, current is %s.', new Date().toISOString(), BUILD_TIMESTAMP)
                 r.update()
             }, RECHECK_INTERVAL_MS);
         },

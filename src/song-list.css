@@ -8,9 +8,10 @@
     overflow-y: scroll;
 }
 
-.SongList__Item {
+.SongList .SongList__Item {
     display: block;
     width: 100%;
+    border: 1px solid #434343;
 }
 
 .SongList__Item_title {
@@ -25,9 +26,9 @@
 }
 
 .SongList__Item_bpm {
-    font-weight: bold;
+    font-weight: bolder;
     vertical-align: middle;
     display: inline-block;
     width: 5em;
-    color: lightgreen;
+    color: #0cfe0c;
 }

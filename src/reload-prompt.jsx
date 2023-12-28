@@ -11,7 +11,7 @@ const RECHECK_INTERVAL_MS = 20_000;
 console.log("PWA info: %o", pwaInfo)
 
 export const ReloadPrompt = () => {
-    const buildDate = '__BUILD_TIMESTAMP__'
+    const buildDate = '__BUILD_TIMESTAMP__';
 
     const {
         offlineReady: [offlineReady, setOfflineReady],
@@ -23,18 +23,22 @@ export const ReloadPrompt = () => {
             r && setInterval(() => {
                 console.log('Checking for SW update at %o, current is %s.', new Date(), buildDate)
                 r.update()
-            }, RECHECK_INTERVAL_MS)
+            }, RECHECK_INTERVAL_MS);
         },
         onRegisterError: (error) => {
-            console.log('SW registration failed.', error)
+            console.log('SW registration failed.', error);
         },
     })
 
-    const reload = () => {
+    const reload = (ev) => {
+        ev.preventDefault();
+        console.log("Updating SW...");
         updateServiceWorker(true);
     }
 
-    const ignore = () => {
+    const ignore = (ev) => {
+        ev.preventDefault();
+        console.log("Ignoring updated SW.");
         setOfflineReady(false);
         setNeedRefresh(false);
     }

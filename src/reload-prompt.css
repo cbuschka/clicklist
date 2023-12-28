@@ -9,6 +9,8 @@
     background-color: red;
     opacity: 80%;
     padding: 0;
+    min-height: 1.5em;
+    height: 1.5em;
 }
 
 .ReloadPrompt__hidden {

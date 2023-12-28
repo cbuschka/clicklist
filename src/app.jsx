@@ -10,6 +10,7 @@ import {ButtonBar} from "./button-bar";
 import {FaCirclePlay, FaCircleStop} from "react-icons/fa6";
 import {PulseBar} from "./pulse-bar";
 import {Title} from "./title";
+import {ReloadPrompt} from "./reload-prompt.jsx";
 
 export function App() {
     const [appState, setAppState] = useState({metronome: null, canStartPlaying: false, canStopPlaying: false})
@@ -47,6 +48,7 @@ export function App() {
                                       onClick={stopPlaying}><FaCircleStop/></ButtonBar.Button>
                 </ButtonBar>
                 <PulseBar metronome={metronome} selectedSong={selectedSong}/>
+                <ReloadPrompt/>
             </AppFrame.Bottom>
         </AppFrame>
     </div>;

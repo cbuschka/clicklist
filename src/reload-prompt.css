@@ -1,0 +1,25 @@
+.ReloadPrompt {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    border: 1px solid white;
+    background-color: red;
+    opacity: 80%;
+    padding: 0;
+}
+
+.ReloadPrompt__hidden {
+    display: none;
+}
+
+.ReloadPrompt__choice {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    width: 50%;
+    display: inline-block;
+    text-align: center;
+}

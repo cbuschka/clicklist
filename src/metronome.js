@@ -8,7 +8,7 @@ export class Metronome {
         this.listeners = [];
         this.audioContext = null;
         this.startTime = null;
-        this.currentTwelveletNote;
+        this.currentTwelveletNote = 0;
         this.tempo = 120.0; // rename to tempoBPM
         this.meter = 4;
         this.masterVolume = 1;
@@ -53,9 +53,6 @@ export class Metronome {
         const secondsPerBeat = 60.0 / this.tempo;
         this.nextNoteTime += 0.08333 * secondsPerBeat;
         this.currentTwelveletNote++;
-        if (this.currentTwelveletNote === this.maxBeats()) {
-            this.currentTwelveletNote = 0;
-        }
     }
 
     calcVolume = (beatVolume) => {
@@ -115,7 +112,7 @@ export class Metronome {
 
         osc.start(time);
         osc.stop(time + this.noteLength);
-        this.fireEvent({type: "tick", data: {beatNumber, time}});
+        this.fireEvent({type: "tick", data: {beatNumber: beatNumber % this.maxBeats(), time}});
     }
 
     scheduler = () => {

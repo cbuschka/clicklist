@@ -10,7 +10,7 @@ const pwaOptions = {
     manifest: {
         name: 'ClickList',
         short_name: 'ClickList',
-        theme_color: '#ffffff',
+        theme_color: '#000000',
         icons: [
             {
                 src: 'icon192.png', // <== don't add slash, for testing

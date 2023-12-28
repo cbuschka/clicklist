@@ -13,6 +13,25 @@
     cursor: pointer;
 }
 
+.ButtonBar__Button.red {
+    background-color: red;
+    color: white;
+}
+
+.ButtonBar__Button.green {
+    background-color: green;
+    color: white;
+}
+
+.ButtonBar__Button.red:disabled, .ButtonBar__Button.red[disabled] {
+    background-color: #7e0000;
+}
+
+.ButtonBar__Button.green:disabled, .ButtonBar__Button.green[disabled] {
+    background-color: #005c00;
+}
+
+
 .ButtonBar__Button:disabled, .ButtonBar__Button[disabled] {
     color: black;
     pointer-events: none;

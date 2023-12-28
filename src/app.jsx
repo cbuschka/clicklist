@@ -43,9 +43,11 @@ export function App() {
             <AppFrame.Bottom>
                 <PulseBar metronome={metronome} selectedSong={selectedSong}/>
                 <ButtonBar>
-                    <ButtonBar.Button disabled={canStartPlaying !== true}
+                    <ButtonBar.Button color="green"
+                                      disabled={canStartPlaying !== true}
                                       onClick={startPlaying}><FaCirclePlay/></ButtonBar.Button>
-                    <ButtonBar.Button disabled={canStopPlaying !== true}
+                    <ButtonBar.Button color="red"
+                                      disabled={canStopPlaying !== true}
                                       onClick={stopPlaying}><FaCircleStop/></ButtonBar.Button>
                 </ButtonBar>
             </AppFrame.Bottom>

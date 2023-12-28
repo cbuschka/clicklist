@@ -34,6 +34,7 @@ export const ReloadPrompt = () => {
         ev.preventDefault();
         console.log("Updating SW...");
         updateServiceWorker(true);
+        location.reload();
     }
 
     const ignore = (ev) => {

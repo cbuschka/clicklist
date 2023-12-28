@@ -10,5 +10,5 @@ export const ButtonBar = ({children}) => {
 
 ButtonBar.Button = ({onClick = noop, children, disabled}) => {
     return <button className={classNames("ButtonBar__Button", disabled === true ? "ButtonBar__Button_disabled" : null)}
-                   onClick={onClick}>{children}</button>;
+                   disabled={disabled} onClick={onClick}>{children}</button>;
 }

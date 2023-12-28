@@ -13,12 +13,9 @@
     cursor: pointer;
 }
 
-:not(.ButtonBar__Button_disabled).ButtonBar__Button:hover {
-    color: lightgreen;
-}
-
-.ButtonBar__Button_disabled {
-    color: darkgray;
+.ButtonBar__Button:disabled, .ButtonBar__Button[disabled] {
+    color: black;
+    pointer-events: none;
 }
 
 /* one item */

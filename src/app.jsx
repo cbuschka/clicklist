@@ -41,13 +41,13 @@ export function App() {
                 <SongList songs={songs} selectedSong={selectedSong}/>
             </AppFrame.Body>
             <AppFrame.Bottom>
+                <PulseBar metronome={metronome} selectedSong={selectedSong}/>
                 <ButtonBar>
                     <ButtonBar.Button disabled={canStartPlaying !== true}
                                       onClick={startPlaying}><FaCirclePlay/></ButtonBar.Button>
                     <ButtonBar.Button disabled={canStopPlaying !== true}
                                       onClick={stopPlaying}><FaCircleStop/></ButtonBar.Button>
                 </ButtonBar>
-                <PulseBar metronome={metronome} selectedSong={selectedSong}/>
             </AppFrame.Bottom>
         </AppFrame>
         <ReloadPrompt/>

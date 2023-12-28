@@ -48,8 +48,8 @@ export function App() {
                                       onClick={stopPlaying}><FaCircleStop/></ButtonBar.Button>
                 </ButtonBar>
                 <PulseBar metronome={metronome} selectedSong={selectedSong}/>
-                <ReloadPrompt/>
             </AppFrame.Bottom>
         </AppFrame>
+        <ReloadPrompt/>
     </div>;
 }

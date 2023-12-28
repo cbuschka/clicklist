@@ -1,10 +1,7 @@
 import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react'
 import {VitePWA} from 'vite-plugin-pwa'
-import replace from '@rollup/plugin-replace'
-
-const replaceOptions = {preventAssignment: true, __BUILD_TIMESTAMP__: new Date().toISOString()}
-
+import {CommitHashPlugin} from 'vite-plugin-commit-hash';
 
 const pwaOptions = {
     // mode: 'development',
@@ -37,7 +34,10 @@ const pwaOptions = {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react(), VitePWA(pwaOptions), replace(replaceOptions)],
+    plugins: [react(),
+        VitePWA(pwaOptions),
+        CommitHashPlugin({noPrefix: false, noVirtual: false})
+    ],
     base: '/clicklist/'
 })
 

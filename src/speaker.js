@@ -37,6 +37,7 @@ export class Speaker {
             utterThis.voice = this.voice;
             utterThis.pitch = 1;
             utterThis.rate = 1.1;
+            utterThis.volume = 1.0;
             this.synth.speak(utterThis);
         }
     }

@@ -13,7 +13,7 @@ export class Metronome {
         this.meter = 4;
         this.masterVolume = 1;
         this.accentVolume = 1;
-        this.quarterVolume = 0.9;
+        this.quarterVolume = 0.8;
         this.eighthVolume = 0;
         this.sixteenthVolume = 0;
         this.tripletVolume = 0;
@@ -112,7 +112,10 @@ export class Metronome {
 
         osc.start(time);
         osc.stop(time + this.noteLength);
-        this.fireEvent({type: "tick", data: {beatNumber: beatNumber % this.maxBeats(), time}});
+        this.fireEvent({
+            type: "tick",
+            data: {beatNumber: beatNumber % this.maxBeats(), twelveletNumber: beatNumber, time}
+        });
     }
 
     scheduler = () => {

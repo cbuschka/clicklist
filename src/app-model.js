@@ -1,9 +1,22 @@
 import {dispatcher} from "@cbuschka/flux";
 import {Metronome} from "./metronome.js";
+import {Speaker} from "./speaker.js";
 
 const SONGS = [
-    {"id": "a9b96d21-4615-457d-9f0c-16689f926c14", "title": "Alkohol", "bpm": 120, "beatsPerBar": 4},
-    {"id": "a58b2f43-9836-4a71-9cb0-ed64286e3561", "title": "Das System", "bpm": 140, "beatsPerBar": 4},
+    {
+        "id": "a9b96d21-4615-457d-9f0c-16689f926c14", "title": "Alkohol", "bpm": 120, "beatsPerBar": 4
+    },
+    {
+        "id": "a58b2f43-9836-4a71-9cb0-ed64286e3561", "title": "Das System", "bpm": 140, "beatsPerBar": 4,
+        "parts": [
+            {"bar": 1, "early": true, title: "Intro"},
+            {"bar": 5, "early": true, title: "again"},
+            {"bar": 9, "early": true, title: "Verse 1"},
+            {"bar": 13, "early": true, title: "again"},
+            {"bar": 17, "early": true, title: "Chorus 1"},
+            {"bar": 21, "early": true, title: "again"},
+        ]
+    },
     {"id": "30ec5e23-d8f2-455e-96da-e25451c8824c", "title": "Droge", "bpm": 150, "beatsPerBar": 4},
     {"id": "fbdd3e43-1952-41cd-bbb5-3e7f5cce3a87", "title": "Facebook", "bpm": 140, "beatsPerBar": 4},
     {"id": "fe2377ae-0a51-4a0f-9c3b-0494b927b238", "title": "Freitag, der 13.", "bpm": 140, "beatsPerBar": 4},
@@ -29,14 +42,16 @@ class AppModel {
         this.metronome = new Metronome();
         this.selectedSong = null;
         this.songs = JSON.parse(JSON.stringify(SONGS));
+        this.speaker = new Speaker();
     }
 
     onSongSelected = ({data: {song}}) => {
         if (this.selectedSong !== song) {
             this.selectedSong = song;
-            if (!!this.selectedSong) {
+            if (this.selectedSong) {
                 this.metronome.setTempo(this.selectedSong.bpm);
                 this.metronome.play();
+                this.speaker.setParts(this.selectedSong.parts || []);
             }
         }
     }
@@ -60,6 +75,7 @@ class AppModel {
         target["songList"] = {songs: this.songs, selectedSong: this.selectedSong};
         target["app"] = {
             metronome: this.metronome,
+            speaker: this.speaker,
             playing: (this.metronome.getStatus() === "playing"),
             canStartPlaying: (this.metronome.getStatus() !== "playing" && !!this.selectedSong),
             canStopPlaying: (this.metronome.getStatus() === "playing")

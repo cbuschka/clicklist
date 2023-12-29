@@ -13,7 +13,12 @@ import {Title} from "./title";
 import {ReloadPrompt} from "./reload-prompt.jsx";
 
 export function App() {
-    const [appState, setAppState] = useState({metronome: null, canStartPlaying: false, canStopPlaying: false})
+    const [appState, setAppState] = useState({
+        metronome: null,
+        speaker: null,
+        canStartPlaying: false,
+        canStopPlaying: false
+    })
     const [songs, setSongs] = useState([])
     const [selectedSong, setSelectedSong] = useState(null)
     useEffect(() => {
@@ -29,8 +34,28 @@ export function App() {
         };
     }, [dispatcher]);
 
+    const {metronome, speaker, canStartPlaying, canStopPlaying} = appState;
 
-    const {metronome, canStartPlaying, canStopPlaying} = appState;
+    useEffect(() => {
+        if (!metronome || !selectedSong || !speaker) {
+            return () => {
+            }
+        }
+
+        if (selectedSong) {
+            speaker.setParts(selectedSong.parts || [], selectedSong.beatsPerBar);
+        }
+
+        const listener = (ev) => {
+            if (ev.type === "tick" && ev.data) {
+                speaker.play(ev.data.twelveletNumber);
+            }
+        };
+        metronome.addListener(listener);
+        return () => {
+            metronome.removeListener(listener);
+        }
+    }, [metronome, speaker, selectedSong]);
 
     return <div className="App">
         <AppFrame>

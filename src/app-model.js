@@ -1,6 +1,7 @@
 import {dispatcher} from "@cbuschka/flux";
 import {Metronome} from "./metronome.js";
 import {Speaker} from "./speaker.js";
+import {Song} from "./song.js";
 
 const SONGS = [
     {
@@ -67,7 +68,9 @@ class AppModel {
     constructor() {
         this.metronome = new Metronome();
         this.selectedSong = null;
-        this.songs = JSON.parse(JSON.stringify(SONGS));
+        this.songs = SONGS.map(songData => {
+            return new Song(songData);
+        });
         this.speaker = new Speaker();
     }
 
@@ -77,7 +80,7 @@ class AppModel {
             if (this.selectedSong) {
                 this.metronome.setTempo(this.selectedSong.bpm);
                 this.metronome.play();
-                this.speaker.setParts(this.selectedSong.parts || []);
+                this.speaker.setSong(this.selectedSong);
             }
         }
     }

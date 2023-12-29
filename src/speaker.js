@@ -19,18 +19,8 @@ export class Speaker {
         this.partsByBeat = {};
     }
 
-    setParts(parts, beatsPerBar) {
-        this.beatsPerBar = beatsPerBar;
-        const partsByBeat = {};
-        let nextStartInBeats = 0;
-        parts.forEach((part) => {
-            const startInBeats = nextStartInBeats;
-            const startModInBeats = part.early === true ? -(beatsPerBar - 2) : 0;
-            partsByBeat[startInBeats + startModInBeats] = part;
-            nextStartInBeats = nextStartInBeats + (part.lengthInBars * beatsPerBar);
-        });
-        console.log("parts changed %o", partsByBeat)
-        this.partsByBeat = partsByBeat;
+    setSong(song) {
+        this.song = song;
     }
 
     play(twelveletNumber) {
@@ -38,10 +28,11 @@ export class Speaker {
             return;
         }
 
-        const beat = twelveletNumber < 0 ? Math.floor(((12 * this.beatsPerBar * 2) + twelveletNumber) / 12) * -1 : Math.floor(twelveletNumber / 12);
+        const beat = Math.floor(Math.abs(twelveletNumber / 12)) * Math.sign(twelveletNumber);
 
-        const part = this.partsByBeat[beat];
-        if (part && part.title) {
+        const parts = this.song.getPartsFor(beat).filter(part => part.type === "announcement" && part.title);
+        if (parts.length > 0) {
+            const part = parts[0];
             console.log("speaking for beat %o: %o", beat, part)
             const utterThis = new SpeechSynthesisUtterance(part.title);
             utterThis.voice = this.voice;
@@ -49,19 +40,5 @@ export class Speaker {
             utterThis.rate = 1.1;
             this.synth.speak(utterThis);
         }
-
     }
-
-    /*
-
-
-    getStatus() {
-        if (!this.synth) {
-            return "unavailable";
-        }
-        if (this.synth.speaking) {
-            return "speaking";
-        }
-    }
-     */
 }

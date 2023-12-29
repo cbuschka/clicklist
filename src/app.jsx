@@ -44,7 +44,7 @@ export function App() {
         }
 
         if (selectedSong) {
-            speaker.setParts(selectedSong.parts || [], selectedSong.beatsPerBar);
+            speaker.setSong(selectedSong);
         }
 
         const listener = (ev) => {
@@ -67,10 +67,8 @@ export function App() {
                 <SongList songs={songs} selectedSong={selectedSong}/>
             </AppFrame.Body>
             <AppFrame.Bottom>
-                <div>
-                    <BeatView metronome={metronome} selectedSong={selectedSong}/>
-                    <PulseBar metronome={metronome} selectedSong={selectedSong}/>
-                </div>
+                <BeatView metronome={metronome} selectedSong={selectedSong}/>
+                <PulseBar metronome={metronome} selectedSong={selectedSong}/>
                 <ButtonBar>
                     <ButtonBar.Button color="green"
                                       disabled={canStartPlaying !== true}

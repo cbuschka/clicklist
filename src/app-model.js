@@ -15,23 +15,17 @@ const SONGS = [
             {"lengthInBars": 8, "early": true, title: "Verse 1"},
             {"lengthInBars": 3, "early": true, title: "Prechorus 1"},
             {"lengthInBars": 4, "early": true, title: "Build"},
-
-            {"lengthInBars": 4, "early": true, title: "Chorus 1"},
-            {"lengthInBars": 4, "early": true, title: "Chorus again"},
+            {"lengthInBars": 8, "early": true, title: "Chorus 1"},
             {"lengthInBars": 4, "early": true, title: "Postchorus 1"},
 
             {"lengthInBars": 8, "early": true, title: "Verse 2"},
             {"lengthInBars": 3, "early": true, title: "Prechorus 2"},
             {"lengthInBars": 4, "early": true, title: "Build"},
-
-            {"lengthInBars": 4, "early": true, title: "Chorus 2"},
-            {"lengthInBars": 4, "early": true, title: "Chorus again"},
+            {"lengthInBars": 8, "early": true, title: "Chorus 2"},
             {"lengthInBars": 2, "early": true, title: "Postchorus 2"},
 
             {"lengthInBars": 2, "early": true, title: "Fill"},
-            {"lengthInBars": 4, "early": true, title: "Solo"},
-            {"lengthInBars": 4, "early": true, title: "Solo again"},
-
+            {"lengthInBars": 8, "early": true, title: "Solo"},
             {"lengthInBars": 8, "early": true, title: "Chorus 3"},
             {"lengthInBars": 4, "early": true, title: "Postchorus 3"},
 

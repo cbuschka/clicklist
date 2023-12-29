@@ -6,7 +6,6 @@ export const BeatView = ({metronome, selectedSong}) => {
     const [bar, setBar] = useState(0);
     const [title, setTitle] = useState("");
 
-    const [beatState, setBeatState] = useState({beat: 0, bar: 0, title: ""});
     useEffect(() => {
         if (!metronome) {
             return () => {

@@ -1,7 +1,7 @@
 import {dispatcher} from "@cbuschka/flux";
-import {Metronome} from "./metronome.js";
-import {Speaker} from "./speaker.js";
 import {Song} from "./song.js";
+import {player} from "./player.js";
+import {updateView} from "./update-view-action.js";
 
 const SONGS = [
     {
@@ -10,24 +10,19 @@ const SONGS = [
     {
         "id": "a58b2f43-9836-4a71-9cb0-ed64286e3561", "title": "Das System", "bpm": 140, "beatsPerBar": 4,
         "parts": [
-            {"lengthInBars": 4, "early": true, title: "Intro"},
-            {"lengthInBars": 4, "early": true, title: "Intro again"},
+            {"lengthInBars": 8, "early": true, title: "Intro"},
 
-            {"lengthInBars": 4, "early": true, title: "Verse 1"},
-            {"lengthInBars": 4, "early": true, title: "Verse again"},
+            {"lengthInBars": 8, "early": true, title: "Verse 1"},
             {"lengthInBars": 3, "early": true, title: "Prechorus 1"},
-            {"lengthInBars": 2, "early": true, title: "Build slow"},
-            {"lengthInBars": 2, "early": true, title: "Build fast"},
+            {"lengthInBars": 4, "early": true, title: "Build"},
 
             {"lengthInBars": 4, "early": true, title: "Chorus 1"},
             {"lengthInBars": 4, "early": true, title: "Chorus again"},
             {"lengthInBars": 4, "early": true, title: "Postchorus 1"},
 
-            {"lengthInBars": 4, "early": true, title: "Verse 2"},
-            {"lengthInBars": 4, "early": true, title: "Verse again"},
+            {"lengthInBars": 8, "early": true, title: "Verse 2"},
             {"lengthInBars": 3, "early": true, title: "Prechorus 2"},
-            {"lengthInBars": 2, "early": true, title: "Build slow"},
-            {"lengthInBars": 2, "early": true, title: "Build fast"},
+            {"lengthInBars": 4, "early": true, title: "Build"},
 
             {"lengthInBars": 4, "early": true, title: "Chorus 2"},
             {"lengthInBars": 4, "early": true, title: "Chorus again"},
@@ -37,8 +32,7 @@ const SONGS = [
             {"lengthInBars": 4, "early": true, title: "Solo"},
             {"lengthInBars": 4, "early": true, title: "Solo again"},
 
-            {"lengthInBars": 4, "early": true, title: "Chorus 3"},
-            {"lengthInBars": 4, "early": true, title: "Chorus again"},
+            {"lengthInBars": 8, "early": true, title: "Chorus 3"},
             {"lengthInBars": 4, "early": true, title: "Postchorus 3"},
 
             {"lengthInBars": 1, "early": true, title: "End"},
@@ -66,21 +60,27 @@ const SONGS = [
 
 class AppModel {
     constructor() {
-        this.metronome = new Metronome();
+        this.player = player;
+        this.player.addListener(this.onPlayer)
         this.selectedSong = null;
         this.songs = SONGS.map(songData => {
             return new Song(songData);
         });
-        this.speaker = new Speaker();
+
+        this.playState = {twelveletNumber: 0, beat: 0, bar: 0, title: "", barTitle: "", beatInBar: 0, beatsPerBar: 0};
     }
 
     onSongSelected = ({data: {song}}) => {
         if (this.selectedSong !== song) {
             this.selectedSong = song;
             if (this.selectedSong) {
-                this.metronome.setTempo(this.selectedSong.bpm);
-                this.metronome.play();
-                this.speaker.setSong(this.selectedSong);
+                this.player.setSong(this.selectedSong);
+                this.playState.beatsPerBar = 0;
+                if (this.selectedSong) {
+                    this.player.startPlaying();
+                }
+            } else {
+                this.playState.beatsPerBar = 0;
             }
         }
     }
@@ -91,23 +91,39 @@ class AppModel {
             return;
         }
 
-        this.metronome.setTempo(this.selectedSong.bpm);
-        this.metronome.play();
+        this.player.startPlaying();
     }
 
     onStopPlaying = (ev) => {
         console.log("Stopping metronome...");
-        this.metronome.stop();
+        this.player.stopPlaying();
+    }
+
+    onUpdatePlayingProgress = ({data}) => {
+        this.playState = {...data};
+    }
+
+    onUpdateView = () => {
+        // left black
+    }
+
+    onPlayer = (ev) => {
+        if (ev.type === 'start') {
+            updateView();
+        } else if (ev.type === 'stop') {
+            updateView();
+        } else if (ev.type === 'tick') {
+            this.playState = {...ev.data};
+            updateView();
+        }
     }
 
     appendDataTo(target) {
         target["songList"] = {songs: this.songs, selectedSong: this.selectedSong};
-        target["app"] = {
-            metronome: this.metronome,
-            speaker: this.speaker,
-            playing: (this.metronome.getStatus() === "playing"),
-            canStartPlaying: (this.metronome.getStatus() !== "playing" && !!this.selectedSong),
-            canStopPlaying: (this.metronome.getStatus() === "playing")
+        target["playState"] = {...this.playState};
+        target["appState"] = {
+            canStartPlaying: this.selectedSong && !this.player.isPlaying(),
+            canStopPlaying: this.player.isPlaying()
         };
     }
 }

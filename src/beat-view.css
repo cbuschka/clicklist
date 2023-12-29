@@ -9,13 +9,6 @@
     margin: 0;
 }
 
-.BeatView__bar {
-    font-size: larger;
-    padding: 1em;
-    flex: 0.3;
-    border: 0;
-}
-
 .BeatView__title {
     padding: 1em;
     font-size: larger;
@@ -23,5 +16,14 @@
     flex: 0.7;
     border: 0;
     overflow: hidden;
+}
+
+.BeatView__bar {
+    font-size: larger;
+    padding: 1em;
+    flex: 0.3;
+    border: 0;
+    overflow: hidden;
     text-align: right;
 }
+

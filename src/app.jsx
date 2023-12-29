@@ -15,19 +15,25 @@ import {BeatView} from "./beat-view.jsx";
 
 export function App() {
     const [appState, setAppState] = useState({
-        metronome: null,
-        speaker: null,
         canStartPlaying: false,
         canStopPlaying: false
-    })
+    });
+    const [playState, setPlayState] = useState({
+        beat: 0,
+        bar: 0,
+        title: "",
+        beatInBar: 0,
+        beatsPerBar: 0
+    });
     const [songs, setSongs] = useState([])
     const [selectedSong, setSelectedSong] = useState(null)
     useEffect(() => {
         const listener = (ev) => {
-            const {data: {songList: {songs, selectedSong}, app: appState}} = ev;
+            const {data: {songList: {songs, selectedSong}, appState, playState}} = ev;
             setSongs(songs);
             setSelectedSong(selectedSong);
-            setAppState(appState);
+            setAppState({...appState});
+            setPlayState({...playState});
         }
         dispatcher.subscribe(listener);
         return () => {
@@ -35,28 +41,8 @@ export function App() {
         };
     }, [dispatcher]);
 
-    const {metronome, speaker, canStartPlaying, canStopPlaying} = appState;
-
-    useEffect(() => {
-        if (!metronome || !selectedSong || !speaker) {
-            return () => {
-            }
-        }
-
-        if (selectedSong) {
-            speaker.setSong(selectedSong);
-        }
-
-        const listener = (ev) => {
-            if (ev.type === "tick" && ev.data) {
-                speaker.play(ev.data.twelveletNumber);
-            }
-        };
-        metronome.addListener(listener);
-        return () => {
-            metronome.removeListener(listener);
-        }
-    }, [metronome, speaker, selectedSong]);
+    const {canStartPlaying, canStopPlaying} = appState;
+    const {barTitle, title, beatsPerBar, beatInBar} = playState;
 
     return <div className="App">
         <AppFrame>
@@ -67,8 +53,8 @@ export function App() {
                 <SongList songs={songs} selectedSong={selectedSong}/>
             </AppFrame.Body>
             <AppFrame.Bottom>
-                <BeatView metronome={metronome} selectedSong={selectedSong}/>
-                <PulseBar metronome={metronome} selectedSong={selectedSong}/>
+                <BeatView bar={barTitle} title={title}/>
+                <PulseBar beatsPerBar={beatsPerBar} beatInBar={beatInBar}/>
                 <ButtonBar>
                     <ButtonBar.Button color="green"
                                       disabled={canStartPlaying !== true}

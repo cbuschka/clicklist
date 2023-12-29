@@ -116,11 +116,10 @@ export class Metronome {
 
         const positiveTwelveletNumber = (twelveletNumber + (2 * this.meter * 2));
         const beat = positiveTwelveletNumber % 12 === 0 ? Math.floor(positiveTwelveletNumber / 12) : undefined;
-        const bar = beat ? beat / this.meter : undefined;
 
         this.fireEvent({
             type: "tick",
-            data: {twelveletNumber, bar, beat, time}
+            data: {twelveletNumber, beat, time}
         });
     }
 
@@ -153,3 +152,5 @@ export class Metronome {
         this.timerWorker.terminate();
     }
 }
+
+export const metronome = new Metronome();

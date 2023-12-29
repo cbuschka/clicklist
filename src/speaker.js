@@ -16,7 +16,6 @@ export class Speaker {
         });
         this.voice = voices[0];
         this.beatsPerBar = 1;
-        this.partsByBeat = {};
     }
 
     setSong(song) {
@@ -42,3 +41,5 @@ export class Speaker {
         }
     }
 }
+
+export const speaker = new Speaker();

@@ -11,6 +11,7 @@ import {FaCirclePlay, FaCircleStop} from "react-icons/fa6";
 import {PulseBar} from "./pulse-bar";
 import {Title} from "./title";
 import {ReloadPrompt} from "./reload-prompt.jsx";
+import {BeatView} from "./beat-view.jsx";
 
 export function App() {
     const [appState, setAppState] = useState({
@@ -66,7 +67,10 @@ export function App() {
                 <SongList songs={songs} selectedSong={selectedSong}/>
             </AppFrame.Body>
             <AppFrame.Bottom>
-                <PulseBar metronome={metronome} selectedSong={selectedSong}/>
+                <div>
+                    <BeatView metronome={metronome} selectedSong={selectedSong}/>
+                    <PulseBar metronome={metronome} selectedSong={selectedSong}/>
+                </div>
                 <ButtonBar>
                     <ButtonBar.Button color="green"
                                       disabled={canStartPlaying !== true}

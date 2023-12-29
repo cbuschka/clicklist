@@ -3,7 +3,7 @@ import {Pulse} from "./pulse";
 import {useEffect, useState} from "react";
 
 export const PulseBar = ({metronome, selectedSong}) => {
-    const n = selectedSong ? selectedSong.beatsPerBar : 0;
+    const beatsPerBar = selectedSong ? selectedSong.beatsPerBar : 0;
     const [active, setActive] = useState(-1);
     useEffect(() => {
         if (!metronome) {
@@ -11,8 +11,10 @@ export const PulseBar = ({metronome, selectedSong}) => {
             }
         }
         const listener = (ev) => {
-            if (ev.type === "tick" && ev.data && n > 0) {
-                const newActive = Math.floor(ev.data.beatNumber / 12);
+            if (ev.type === "tick" && ev.data && beatsPerBar > 0) {
+                const twelveletNumber = ev.data.twelveletNumber < 0 ? (12 * beatsPerBar * 2) + ev.data.twelveletNumber : ev.data.twelveletNumber;
+                const beat = Math.floor(twelveletNumber / 12)
+                const newActive = beat % beatsPerBar;
                 setActive(newActive);
             }
         };
@@ -22,10 +24,10 @@ export const PulseBar = ({metronome, selectedSong}) => {
         }
     }, [metronome, selectedSong]);
 
-    return <div className="PulseBar">{
-        [...Array(n).keys()].map((i) => {
+    return <div className="PulseBar">
+        {[...Array(beatsPerBar).keys()].map((i) => {
             return <Pulse key={i} active={active === i}/>
-        })
-    }
-    </div>;
+        })}
+    </div>
+        ;
 };

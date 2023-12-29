@@ -9,12 +9,38 @@ const SONGS = [
     {
         "id": "a58b2f43-9836-4a71-9cb0-ed64286e3561", "title": "Das System", "bpm": 140, "beatsPerBar": 4,
         "parts": [
-            {"bar": 1, "early": true, title: "Intro"},
-            {"bar": 5, "early": true, title: "again"},
-            {"bar": 9, "early": true, title: "Verse 1"},
-            {"bar": 13, "early": true, title: "again"},
-            {"bar": 17, "early": true, title: "Chorus 1"},
-            {"bar": 21, "early": true, title: "again"},
+            {"lengthInBars": 4, "early": true, title: "Intro"},
+            {"lengthInBars": 4, "early": true, title: "Intro again"},
+
+            {"lengthInBars": 4, "early": true, title: "Verse 1"},
+            {"lengthInBars": 4, "early": true, title: "Verse again"},
+            {"lengthInBars": 3, "early": true, title: "Prechorus 1"},
+            {"lengthInBars": 2, "early": true, title: "Build slow"},
+            {"lengthInBars": 2, "early": true, title: "Build fast"},
+
+            {"lengthInBars": 4, "early": true, title: "Chorus 1"},
+            {"lengthInBars": 4, "early": true, title: "Chorus again"},
+            {"lengthInBars": 4, "early": true, title: "Postchorus 1"},
+
+            {"lengthInBars": 4, "early": true, title: "Verse 2"},
+            {"lengthInBars": 4, "early": true, title: "Verse again"},
+            {"lengthInBars": 3, "early": true, title: "Prechorus 2"},
+            {"lengthInBars": 2, "early": true, title: "Build slow"},
+            {"lengthInBars": 2, "early": true, title: "Build fast"},
+
+            {"lengthInBars": 4, "early": true, title: "Chorus 2"},
+            {"lengthInBars": 4, "early": true, title: "Chorus again"},
+            {"lengthInBars": 2, "early": true, title: "Postchorus 2"},
+
+            {"lengthInBars": 2, "early": true, title: "Fill"},
+            {"lengthInBars": 4, "early": true, title: "Solo"},
+            {"lengthInBars": 4, "early": true, title: "Solo again"},
+
+            {"lengthInBars": 4, "early": true, title: "Chorus 3"},
+            {"lengthInBars": 4, "early": true, title: "Chorus again"},
+            {"lengthInBars": 4, "early": true, title: "Postchorus 3"},
+
+            {"lengthInBars": 1, "early": true, title: "End"},
         ]
     },
     {"id": "30ec5e23-d8f2-455e-96da-e25451c8824c", "title": "Droge", "bpm": 150, "beatsPerBar": 4},

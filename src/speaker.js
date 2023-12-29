@@ -15,30 +15,41 @@ export class Speaker {
             }
         });
         this.voice = voices[0];
+        this.beatsPerBar = 1;
+        this.partsByBeat = {};
     }
 
     setParts(parts, beatsPerBar) {
+        this.beatsPerBar = beatsPerBar;
         const partsByBeat = {};
+        let nextStartInBeats = 0;
         parts.forEach((part) => {
-            const startBeat = part.bar * 12 * beatsPerBar;
-            const startMod = part.early === true ? -(beatsPerBar * 12 / 2) : 0;
-            console.log("startBar %o startBeat %o startMod %o result ", part.bar, startBeat, startMod, Math.max(0, startBeat + startMod))
-            partsByBeat[Math.max(0, startBeat + startMod)] = part;
+            const startInBeats = nextStartInBeats;
+            const startModInBeats = part.early === true ? -(beatsPerBar - 2) : 0;
+            partsByBeat[startInBeats + startModInBeats] = part;
+            nextStartInBeats = nextStartInBeats + (part.lengthInBars * beatsPerBar);
         });
         console.log("parts changed %o", partsByBeat)
         this.partsByBeat = partsByBeat;
     }
 
     play(twelveletNumber) {
-        const part = this.partsByBeat[twelveletNumber];
+        if (Math.abs(twelveletNumber) % 12 !== 0) {
+            return;
+        }
+
+        const beat = twelveletNumber < 0 ? Math.floor(((12 * this.beatsPerBar * 2) + twelveletNumber) / 12) * -1 : Math.floor(twelveletNumber / 12);
+
+        const part = this.partsByBeat[beat];
         if (part && part.title) {
-            console.log("#%o: %o", twelveletNumber, part)
+            console.log("speaking for beat %o: %o", beat, part)
             const utterThis = new SpeechSynthesisUtterance(part.title);
             utterThis.voice = this.voice;
-            // utterThis.pitch = 10;
-            // utterThis.rate = 100;
+            utterThis.pitch = 1;
+            utterThis.rate = 1.1;
             this.synth.speak(utterThis);
         }
+
     }
 
     /*

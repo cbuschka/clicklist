@@ -70,14 +70,15 @@ export class Metronome {
 
         this.status = "playing";
 
-        this.currentTwelveletNote = 0;
+        // this.currentTwelveletNote = 0;
+        this.currentTwelveletNote = -(this.maxBeats() * 2);
         this.nextNoteTime = this.audioContext.currentTime;
         this.timerWorker.postMessage("start");
 
         this.fireEvent({type: "start"});
     }
 
-    scheduleNote = (beatNumber, time) => {
+    scheduleNote = (twelveletNumber, time) => {
 
         // create oscillator & gainNode & connect them to the context destination
         var osc = this.audioContext.createOscillator();
@@ -86,7 +87,7 @@ export class Metronome {
         osc.connect(gainNode);
         gainNode.connect(this.audioContext.destination);
 
-        if (beatNumber % this.maxBeats() === 0) {
+        if (twelveletNumber % this.maxBeats() === 0) {
             if (this.accentVolume > 0.25) {
                 osc.frequency.value = 880.0;
                 gainNode.gain.value = this.calcVolume(this.accentVolume);
@@ -94,16 +95,16 @@ export class Metronome {
                 osc.frequency.value = 440.0;
                 gainNode.gain.value = this.calcVolume(this.quarterVolume);
             }
-        } else if (beatNumber % 12 === 0) {   // quarter notes = medium pitch
+        } else if (twelveletNumber % 12 === 0) {   // quarter notes = medium pitch
             osc.frequency.value = 440.0;
             gainNode.gain.value = this.calcVolume(this.quarterVolume);
-        } else if (beatNumber % 6 === 0) {
+        } else if (twelveletNumber % 6 === 0) {
             osc.frequency.value = 440.0;
             gainNode.gain.value = this.calcVolume(this.eighthVolume);
-        } else if (beatNumber % 4 === 0) {
+        } else if (twelveletNumber % 4 === 0) {
             osc.frequency.value = 300.0;
             gainNode.gain.value = this.calcVolume(this.tripletVolume);
-        } else if (beatNumber % 3 === 0) {                    // other 16th notes = low pitch
+        } else if (twelveletNumber % 3 === 0) {                    // other 16th notes = low pitch
             osc.frequency.value = 220.0;
             gainNode.gain.value = this.calcVolume(this.sixteenthVolume);
         } else {
@@ -112,9 +113,14 @@ export class Metronome {
 
         osc.start(time);
         osc.stop(time + this.noteLength);
+
+        const positiveTwelveletNumber = (twelveletNumber + (2 * this.meter * 2));
+        const beat = positiveTwelveletNumber % 12 === 0 ? Math.floor(positiveTwelveletNumber / 12) : undefined;
+        const bar = beat ? beat / this.meter : undefined;
+
         this.fireEvent({
             type: "tick",
-            data: {beatNumber: beatNumber % this.maxBeats(), twelveletNumber: beatNumber, time}
+            data: {twelveletNumber, bar, beat, time}
         });
     }
 

@@ -16,25 +16,52 @@ html, body {
     padding: 0;
     border: 0;
     margin: 0;
-    height: 100vh;
-    min-height: 100vh;
+}
+
+#root {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    display: grid;
     width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+    color: #242424;
     overflow: hidden;
 }
 
-body {
-    padding: 0;
-    border: 0;
+/*
+@media screen and (min-width: 800px ) {
+    #root {
+        grid-template-columns: 40% auto;
+        grid-template-rows: 25% auto auto auto 25%;
+        grid-template-areas:
+                "header header"
+                "songlist songstruct"
+                "pulsebar songstruct"
+                "beatview songstruct"
+                "footer footer";
+
+    }
+
+
+.songstruct {
+    display: none;
+}
 }
 
-#app {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    background-color: #ffffff;
-    color: #242424;
-    width: 100%;
-
+@media screen and (max-width: 799px ) {
+}
+ */
+#root {
+    grid-template-columns: 100%;
+    grid-template-rows: 4em auto 4em 3.5em auto;
+    grid-template-areas:
+                "header"
+                "songlist"
+                "pulsebar"
+                "beatview"
+                "footer";
 }
 
 body.dark {
@@ -42,72 +69,12 @@ body.dark {
     color: #ffffff;
 }
 
-.dark #app {
+.dark #root {
     background-color: #242424;
     color: #ffffff;
 }
-
 
 h1 {
     font-size: 3.2em;
     line-height: 1.1;
 }
-
-
-/*
-:root {
-
-    color-scheme: light dark;
-    color: rgba(255, 255, 255, 0.87);
-    background-color: #242424;
-
-}
-
-a {
-    font-weight: 500;
-    color: #646cff;
-    text-decoration: inherit;
-}
-
-a:hover {
-    color: #535bf2;
-}
-
-
-
-button {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    background-color: #1a1a1a;
-    cursor: pointer;
-    transition: border-color 0.25s;
-}
-
-button:hover {
-    border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-    :root {
-        color: #213547;
-        background-color: #ffffff;
-    }
-
-    a:hover {
-        color: #747bff;
-    }
-
-    button {
-        background-color: #f9f9f9;
-    }
-}
-*/

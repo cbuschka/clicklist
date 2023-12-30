@@ -5,7 +5,6 @@ import {SongList} from "./song-list";
 import {useEffect, useState} from "react";
 import {startPlaying} from "./start-playing-action.js";
 import {stopPlaying} from "./stop-playing-action.js";
-import {AppFrame} from "./app-frame";
 import {ButtonBar} from "./button-bar";
 import {FaCirclePlay, FaCircleStop} from "react-icons/fa6";
 import {PulseBar} from "./pulse-bar";
@@ -44,27 +43,19 @@ export function App() {
     const {canStartPlaying, canStopPlaying} = appState;
     const {barTitle, title, beatsPerBar, beatInBar} = playState;
 
-    return <div className="App">
-        <AppFrame>
-            <AppFrame.Top>
-                <Title text="ClickList"/>
-            </AppFrame.Top>
-            <AppFrame.Body>
-                <SongList songs={songs} selectedSong={selectedSong}/>
-            </AppFrame.Body>
-            <AppFrame.Bottom>
-                <BeatView bar={barTitle} title={title}/>
-                <PulseBar beatsPerBar={beatsPerBar} beatInBar={beatInBar}/>
-                <ButtonBar>
-                    <ButtonBar.Button color="green"
-                                      disabled={canStartPlaying !== true}
-                                      onClick={startPlaying}><FaCirclePlay/></ButtonBar.Button>
-                    <ButtonBar.Button color="red"
-                                      disabled={canStopPlaying !== true}
-                                      onClick={stopPlaying}><FaCircleStop/></ButtonBar.Button>
-                </ButtonBar>
-            </AppFrame.Bottom>
-        </AppFrame>
+    return <>
+        <Title className="header" text="ClickList"/>
+        <SongList className="songlist" songs={songs} selectedSong={selectedSong}/>
+        <BeatView className="beatview" bar={barTitle} title={title}/>
+        <PulseBar className="pulsebar" beatsPerBar={beatsPerBar} beatInBar={beatInBar}/>
+        <ButtonBar className="footer">
+            <ButtonBar.Button color="green"
+                              disabled={canStartPlaying !== true}
+                              onClick={startPlaying}><FaCirclePlay/></ButtonBar.Button>
+            <ButtonBar.Button color="red"
+                              disabled={canStopPlaying !== true}
+                              onClick={stopPlaying}><FaCircleStop/></ButtonBar.Button>
+        </ButtonBar>
         <ReloadPrompt/>
-    </div>;
+    </>;
 }

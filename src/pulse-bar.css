@@ -2,7 +2,7 @@
     display: block;
     width: 100%;
     padding: 1em;
-    border-bottom: 1px solid darkgrey;
+    border-bottom: 1px solid #434343;
     min-height: 1.5em;
     height: 1.5em;
 }

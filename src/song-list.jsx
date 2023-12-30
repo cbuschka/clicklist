@@ -1,6 +1,7 @@
 import './song-list.css';
 import {selectSong} from "./select-song-action.js";
 import {List, ListItem} from "./list";
+import classNames from "classnames";
 
 const Item = ({song, onSongSelect, selected}) => {
     const selectSong = (ev) => {
@@ -13,12 +14,10 @@ const Item = ({song, onSongSelect, selected}) => {
     </ListItem>
 }
 
-export const SongList = ({songs, selectedSong}) => {
-    return <div className="SongList">
-        <div className="SongList__ScrollPane">
-            <List className="SongList__List">{songs.map((song => {
-                return <Item key={song.id} song={song} selected={selectedSong === song} onSongSelect={selectSong}/>;
-            }))}</List>
-        </div>
+export const SongList = ({songs, selectedSong, className}) => {
+    return <div className={classNames("SongList", className)}>
+        <List className="SongList__List">{songs.map((song => {
+            return <Item key={song.id} song={song} selected={selectedSong === song} onSongSelect={selectSong}/>;
+        }))}</List>
     </div>;
 }

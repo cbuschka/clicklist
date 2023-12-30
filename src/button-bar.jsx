@@ -4,8 +4,8 @@ import classNames from "classnames";
 const noop = () => {
 };
 
-export const ButtonBar = ({children}) => {
-    return <div className="ButtonBar">{children}</div>;
+export const ButtonBar = ({children, className}) => {
+    return <div className={classNames("ButtonBar", className)}>{children}</div>;
 }
 
 ButtonBar.Button = ({onClick = noop, children, disabled, color = ""}) => {

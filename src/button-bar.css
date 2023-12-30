@@ -1,6 +1,5 @@
 .ButtonBar {
     place-content: center;
-    border-bottom: 1px solid darkgrey;
 }
 
 .ButtonBar__Button {
@@ -14,21 +13,19 @@
 }
 
 .ButtonBar__Button.red {
-    background-color: red;
-    color: white;
+    color: red;
 }
 
 .ButtonBar__Button.green {
-    background-color: green;
-    color: white;
+    color: green;
 }
 
 .ButtonBar__Button.red:disabled, .ButtonBar__Button.red[disabled] {
-    background-color: #7e0000;
+    color: #434343;
 }
 
 .ButtonBar__Button.green:disabled, .ButtonBar__Button.green[disabled] {
-    background-color: #005c00;
+    color: #434343;
 }
 
 

@@ -65,17 +65,15 @@ class AppModel {
     }
 
     onSongSelected = ({data: {song}}) => {
-        if (this.selectedSong !== song) {
-            this.selectedSong = song;
+        this.selectedSong = song;
+        if (this.selectedSong) {
+            this.player.setSong(this.selectedSong);
+            this.playState.beatsPerBar = 0;
             if (this.selectedSong) {
-                this.player.setSong(this.selectedSong);
-                this.playState.beatsPerBar = 0;
-                if (this.selectedSong) {
-                    this.player.startPlaying();
-                }
-            } else {
-                this.playState.beatsPerBar = 0;
+                this.player.startPlaying();
             }
+        } else {
+            this.playState.beatsPerBar = 0;
         }
     }
 

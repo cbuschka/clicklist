@@ -48,6 +48,7 @@ export function App() {
         <SongList className="songlist" songs={songs} selectedSong={selectedSong}/>
         <BeatView className="beatview" bar={barTitle} title={title}/>
         <PulseBar className="pulsebar" beatsPerBar={beatsPerBar} beatInBar={beatInBar}/>
+        <div className="songstruct">&nbsp;</div>
         <ButtonBar className="footer">
             <ButtonBar.Button color="green"
                               disabled={canStartPlaying !== true}

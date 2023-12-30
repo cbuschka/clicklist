@@ -28,40 +28,62 @@ html, body {
     background-color: #ffffff;
     color: #242424;
     overflow: hidden;
+    grid-template-rows: 4em auto 3em 4em auto;
 }
 
 /*
 @media screen and (min-width: 800px ) {
     #root {
         grid-template-columns: 40% auto;
-        grid-template-rows: 25% auto auto auto 25%;
         grid-template-areas:
                 "header header"
                 "songlist songstruct"
                 "pulsebar songstruct"
                 "beatview songstruct"
                 "footer footer";
-
     }
-
-
-.songstruct {
-    display: none;
-}
 }
 
 @media screen and (max-width: 799px ) {
 }
  */
+
 #root {
     grid-template-columns: 100%;
-    grid-template-rows: 4em auto 4em 3.5em auto;
     grid-template-areas:
                 "header"
                 "songlist"
                 "pulsebar"
                 "beatview"
                 "footer";
+}
+
+.songstruct {
+    display: none;
+}
+
+.header {
+    grid-area: header;
+}
+
+.songlist {
+    grid-area: songlist;
+}
+
+.songstruct {
+    grid-area: songstruct;
+}
+
+.pulsebar {
+    grid-area: pulsebar;
+}
+
+.beatview {
+    grid-area: beatview;
+}
+
+.footer {
+    grid-area: footer;
 }
 
 body.dark {

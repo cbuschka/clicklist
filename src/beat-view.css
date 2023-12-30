@@ -4,7 +4,7 @@
     align-content: stretch;
     width: 100%;
     color: #fef20c;
-    border-bottom: 1px solid #434343;
+    border: 0;
     padding: 0;
     margin: 0;
 }
@@ -20,6 +20,7 @@
 
 .BeatView__bar {
     font-size: larger;
+    font-weight: bolder;
     padding: 1em;
     flex: 0.3;
     border: 0;

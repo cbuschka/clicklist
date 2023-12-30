@@ -28,34 +28,31 @@ html, body {
     background-color: #ffffff;
     color: #242424;
     overflow: hidden;
-    grid-template-rows: 4em auto 3em 4em auto;
 }
 
-/*
 @media screen and (min-width: 800px ) {
     #root {
         grid-template-columns: 40% auto;
+        grid-template-rows: 4em auto 4em auto;
         grid-template-areas:
                 "header header"
-                "songlist songstruct"
-                "pulsebar songstruct"
-                "beatview songstruct"
+                "songlist songlist"
+                "pulsebar beatview"
                 "footer footer";
     }
 }
 
 @media screen and (max-width: 799px ) {
-}
- */
-
-#root {
-    grid-template-columns: 100%;
-    grid-template-areas:
+    #root {
+        grid-template-columns: 100%;
+        grid-template-rows: 4em auto 3em 4em auto;
+        grid-template-areas:
                 "header"
                 "songlist"
                 "pulsebar"
                 "beatview"
                 "footer";
+    }
 }
 
 .songstruct {

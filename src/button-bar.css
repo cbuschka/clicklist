@@ -1,5 +1,6 @@
 .ButtonBar {
     place-content: center;
+    border-top: 1px solid #434343;
 }
 
 .ButtonBar__Button {
